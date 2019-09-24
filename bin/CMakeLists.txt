@@ -19,6 +19,7 @@ SET(BINS
     compute-mfcc-feats
     compute_fbank_cmvn_vad
     wav-reverberate
+    wav-to-duration
 )
 foreach(bin ${BINS})
         MESSAGE(STATUS "generate make for ${bin}")
