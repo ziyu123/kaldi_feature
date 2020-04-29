@@ -15,19 +15,20 @@ namespace sid{
     	public:
         	computeFeature();
         	~computeFeature();
-        	int Init(const char*featureType, int resampeRate);
+        	
+                int Init(const char*featureType, int resampeRate);
         	int Compute(VectorBase<BaseFloat> *data, Matrix<BaseFloat> &features);
-
+                FrameExtractionOptions getFrameOptions();
     	private:
         	char m_featureType[8];
         	MfccOptions mfcc_opts;
-		    Mfcc* m_mfcc;
-		    FbankOptions fbank_opts;
-		    Fbank* m_fbank;
-		    SpectrogramOptions spec_opts;
-		    Spectrogram* m_spec;
-			PitchExtractionOptions pitch_opts;
-            ProcessPitchOptions process_opts;
+		Mfcc* m_mfcc;
+		FbankOptions fbank_opts;
+		Fbank* m_fbank;
+		SpectrogramOptions spec_opts;
+		Spectrogram* m_spec;
+                PitchExtractionOptions pitch_opts;
+                ProcessPitchOptions process_opts;
     	};
 }// end namespace lid
 #endif

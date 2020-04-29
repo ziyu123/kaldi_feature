@@ -5,7 +5,7 @@ set(SOURCES
     voiceActivitydetection.cc
 )
 MESSAGE(STATUS "sources:${SOURCES}")
-add_compile_options(-Wl,--as-needed -g -std=c++0x)
+add_compile_options(-Wl,--as-needed -g -std=c++0x -D_GLIBCXX_USE_CXX11_ABI=0)
 add_library(${OUTPUT_LIB}  ${SOURCES})
 
 

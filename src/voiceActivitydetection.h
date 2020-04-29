@@ -29,6 +29,7 @@
 #include "matrix/matrix-lib.h"
 #include "util/common-utils.h"
 #include "base/kaldi-error.h"
+#include "feat/feature-window.h"
 
 namespace kaldi {
 
@@ -44,6 +45,7 @@ struct VadEnergyOptions {
   BaseFloat vad_energy_mean_scale;
   int32 vad_frames_context;
   BaseFloat vad_proportion_threshold;
+
   
   VadEnergyOptions(): vad_energy_threshold(5.0),
                       vad_energy_mean_scale(0.5),
@@ -83,8 +85,32 @@ void ComputeVadEnergy(const VadEnergyOptions &opts,
 
 
 
+/// compute vad energy only use raw signal energy 
+void ComputeVadEnergyRaw(const FrameExtractionOptions &frame_opts, 
+                         const VadEnergyOptions &opts,
+                         const VectorBase<BaseFloat> &wave,
+                         Vector<BaseFloat> *output_voiced);
+
+/// compute vad zero cross rate use raw signal 
+void ComputeVadZcr(const FrameExtractionOptions &frame_opts,
+                   VectorBase<BaseFloat> &wave,
+                   Vector<BaseFloat> *output_voiced);
+
+
 
 int VadCompute(const Matrix<BaseFloat> &input_features_mfcc, const Matrix<BaseFloat> &input_fbank, Matrix<BaseFloat> &output_fbank);
+
+int VadComputeRaw(const FrameExtractionOptions &frame_opts,
+                  const VectorBase<BaseFloat> &wave, 
+                  const Matrix<BaseFloat> &input_fbank, 
+                  Matrix<BaseFloat> &output_fbank);
+
+
+int VadComputeRawBaseZcrEnergy(const FrameExtractionOptions &frame_opts,
+                  VectorBase<BaseFloat> &wave,
+                  const Matrix<BaseFloat> &input_fbank,
+                  Matrix<BaseFloat> &output_fbank);
+
 
 }  // namespace kaldi
 #endif  // KALDI_IVECTOR_VOICE_ACTIVITY_DETECTION_H_

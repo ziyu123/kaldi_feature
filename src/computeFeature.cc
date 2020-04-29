@@ -39,7 +39,7 @@ namespace sid{
             mfcc_opts.frame_opts.samp_freq = resampeRate;
 	    mfcc_opts.frame_opts.frame_shift_ms = 10;  // in milliseconds.
             mfcc_opts.frame_opts.frame_length_ms = 25;  // in milliseconds.
-            mfcc_opts.frame_opts.dither = 1.0;  // Amount of dithering, 0.0 means no dither.
+            mfcc_opts.frame_opts.dither = 0.0;  // Amount of dithering, 0.0 means no dither.
             mfcc_opts.frame_opts.preemph_coeff = 0.97;  // Preemphasis coefficient.
             mfcc_opts.frame_opts.remove_dc_offset = true;  // Subtract mean of wave before FFT.
             mfcc_opts.frame_opts.snip_edges = true;
@@ -138,4 +138,12 @@ namespace sid{
 	    
 		return 0;
 	}
+
+        FrameExtractionOptions computeFeature::getFrameOptions(){
+            if(0 == strcmp(m_featureType, "mfcc")){
+                return mfcc_opts.frame_opts; 
+            }else if(0 == strcmp(m_featureType, "fbank")){
+                return fbank_opts.frame_opts;
+            }
+        }
 }// end namespace lid

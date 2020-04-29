@@ -1,4 +1,4 @@
-add_compile_options(-Wl,--as-needed -g -std=c++0x)
+add_compile_options(-Wl,--as-needed -g -std=c++0x -D_GLIBCXX_USE_CXX11_ABI=0)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 SET(CMAKE_MACOSX_RPATH 0)
 
@@ -17,7 +17,7 @@ SET(BINS
     compute_spe
     compute_mfcc
     compute-mfcc-feats
-    compute_fbank_cmvn_vad
+    #compute_fbank_cmvn_vad
     wav-reverberate
     wav-to-duration
 )
