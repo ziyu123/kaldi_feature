@@ -39,5 +39,9 @@ struct DATA_BLOCK{
 
 WaveData* readDataFile(const char* path, int& num_chan);
 
+int writeWaveData(const char *file, WaveData* wave);
+
 int writeData2Wave(const char * file, char * dataBuff, int len, int samples);
+
+
 #endif

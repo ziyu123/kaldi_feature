@@ -48,7 +48,24 @@ WaveData* readDataFile(const char* path, int &num_chan){
         wave_read = NULL;
         wave_read = new WaveData(new_sample_freq, resampled_data); 
     }
+    ifs.close();
     return wave_read;
+}
+
+int writeWaveData(const char *file, WaveData* wave){
+    std::ofstream ofile;
+    ofile.open(file, std::ios_base::trunc);
+    if(!ofile.is_open()){
+        fprintf(stderr, "open %s fail.", file);
+        return -1;
+    }
+    if(ofile.bad()){
+       fprintf(stderr, "file write error.");
+       return -1;
+    }
+    wave->Write(ofile); 
+    ofile.close(); 
+    return 0;
 }
 
 int writeData2Wave(const char * file, char * dataBuff, int len, int samples){

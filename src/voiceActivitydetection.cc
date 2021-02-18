@@ -165,7 +165,7 @@ void ComputeVadZcr(const FrameExtractionOptions &frame_opts, VectorBase<BaseFloa
     
       diff_window.AddVec(-1.0, window);
       diff_window.ApplyAbs();
-      diff_window.Add(-0.05);
+      diff_window.Add(-0.02);
       for(int i = 0; i < diff_window.Dim(); i++){
         (diff_window)(i) = (diff_window)(i) <= 0 ? 0 : 1;
       }
@@ -177,7 +177,7 @@ void ComputeVadZcr(const FrameExtractionOptions &frame_opts, VectorBase<BaseFloa
       break;
     }
   }
-  BaseFloat zcrlowThres = (std::max)(5.0, 0.2*(zcr.Sum()/zcr.Dim()));
+  BaseFloat zcrlowThres = (std::max)(3.0, 0.2*(zcr.Sum()/zcr.Dim()));
   for(int i = 0; i < rows_out; i++){
       if((zcr)(i) > zcrlowThres){
         (*output_voiced)(i) = 1.0;
@@ -185,6 +185,7 @@ void ComputeVadZcr(const FrameExtractionOptions &frame_opts, VectorBase<BaseFloa
         (*output_voiced)(i) = 0.0;
       }
   } 
+  wave.Scale(max_val);  // unnormale
 }
 
 
@@ -227,6 +228,7 @@ int VadCompute(const Matrix<BaseFloat> &input_features_mfcc, const Matrix<BaseFl
 int VadComputeRaw(const FrameExtractionOptions &frame_opts, const VectorBase<BaseFloat> &wave, const Matrix<BaseFloat> &input_fbank, Matrix<BaseFloat> &output_fbank){
     VadEnergyOptions opts;
     opts.vad_energy_threshold = 5.5;
+    opts.vad_frames_context = 3;
     if (input_fbank.NumRows() == 0) {
         KALDI_WARN << "Empty feature matrix for utterance ";
         return 0;
