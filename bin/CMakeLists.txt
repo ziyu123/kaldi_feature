@@ -20,6 +20,8 @@ SET(BINS
     #compute_fbank_cmvn_vad
     wav-reverberate
     wav-to-duration
+    kaldi_split
+    kaldi_vad_tool 
 )
 foreach(bin ${BINS})
         MESSAGE(STATUS "generate make for ${bin}")

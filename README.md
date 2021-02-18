@@ -6,7 +6,7 @@ kaldi feature module from [kaldi](http://kaldi-asr.org) toolkit
 - 数学库采用mkl
 - 采用静态库方便不同机器上进行拷贝和使用
 ## 注意：
-- 由于libmkl_core.a 文件太大，超过GitHub 单个文件100M的限制，所以需要clone后，单独下载[libmkl_core.a](https://www.jianguoyun.com/p/DbWgmEMQxJjkBxiHpfUB)文件(mkl版本2017.0.098)
+- 由于libmkl_core.a 文件太大，超过GitHub 单个文件100M的限制，需要安装git-lfs，
 ## 编译:
 - **requirements:**
   - cmake >= 2.8
@@ -21,9 +21,12 @@ kaldi feature module from [kaldi](http://kaldi-asr.org) toolkit
   - build/libkaldi_featue.a
   - bin subdirs
 - **usage:**
-  - extract mfcc
+  - extract mfcc 提取MFCC特征
     - ./build/bin/compute_mfcc wavefile
-  - extract fbank-> cmvn -> vad
+  - extract fbank-> cmvn -> vad 提取fbank特征并进行CMNV和vad操作
     - ./build/bin/compute_fbank_cmvn_vad wavefile outfile
-  - . . .
+  - vad 对音频进行vad去除静音并输出非静音段
+    - ./build/bin/kaldi_vad_tool wavpath outwavpath
+  - 对长语音段进行切分,切分为指定长度（切分根据vad，在静音段段处进行切分）
+    - ./build/bin/kaldi_split wavpath length outwavdir  
 
